@@ -27,7 +27,7 @@ public class Producto {
     private int stock;
     private String descripcion;
     private String urlImagen;
-    @ManyToOne(cascade = CascadeType.DETACH)
+    @ManyToOne
     private Categoria categoria;
     @Transient
     private BigDecimal precioPesos;
