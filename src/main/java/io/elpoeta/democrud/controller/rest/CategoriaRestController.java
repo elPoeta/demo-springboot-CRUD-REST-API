@@ -26,7 +26,6 @@ public class CategoriaRestController {
     @GetMapping("/categorias")
     public List<Categoria> categorias(){
         List<Categoria> categorias = this.categoriaService.buscarTodas();
-        System.out.println(categorias);
         return categorias;
     }
     

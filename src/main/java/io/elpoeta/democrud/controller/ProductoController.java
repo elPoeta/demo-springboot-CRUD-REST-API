@@ -14,7 +14,7 @@ public class ProductoController {
     
     @RequestMapping("/productos")
     public String productos(){
-        return "producto.html";
+        return "producto";
     }
     
     

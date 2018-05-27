@@ -1,4 +1,3 @@
-
 package io.elpoeta.democrud.domaintest;
 
 import io.elpoeta.democrud.DemoSpringbootCrudApplication;
@@ -20,64 +19,64 @@ import org.springframework.test.context.junit4.SpringRunner;
  *
  * @author elPoeta
  */
-
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DemoSpringbootCrudApplication.class)
 public class ProductoServiceTest {
+
     @Autowired
     private ProductoService productoService;
     @Autowired
-    private CategoriaService categoriaService;  
-    
+    private CategoriaService categoriaService;
+
     @Test
-    public void buscarPorId_conIdExistente_retornaProductoConEseId(){
+    public void buscarPorId_conIdExistente_retornaProductoConEseId() {
         Long id = 1L;
-    
+
         Producto producto = productoService.buscarPorId(id);
-        
+
         assertThat(producto).isNotNull();
         assertThat(producto.getId()).isEqualTo(id);
     }
-    
+
     @Test
-    public void buscarPorId_conIdExistente_retornaNull(){
+    public void buscarPorId_conIdExistente_retornaNull() {
         Long id = 945L;
-        
+
         Producto producto = productoService.buscarPorId(id);
-        
-        assertThat(producto).isNull();  
+
+        assertThat(producto).isNull();
     }
-    
+
     @Test(expected = InvalidDataAccessApiUsageException.class)
     public void buscarPorId_conIdNull_lanzaExcepcion() {
         productoService.buscarPorId(null);
         fail("Debería haberse lanzado una excepción.");
     }
-    
+
     @Test
-    public void buscarTodos_retornaColeccion(){
+    public void buscarTodos_retornaColeccion() {
         List<Producto> productos = productoService.buscarTodos();
-        
+
         assertThat(productos).isNotEmpty();
     }
-    
+
     @Test
-    public void buscarPorCategoria_retornaColecionConEsaCategoria(){
-        Long id= 1L;
+    public void buscarPorCategoria_retornaColecionConEsaCategoria() {
+        Long id = 1L;
         List<Producto> productos = productoService.buscarPorCategoria(id);
         assertThat(productos).isNotEmpty();
     }
-    
+
     @Test
-    public void buscarPorCategoria_retornaColecionVacia(){
-        Long id= 7L;
+    public void buscarPorCategoria_retornaColecionVacia() {
+        Long id = 7L;
         List<Producto> productos = productoService.buscarPorCategoria(id);
         assertThat(productos).isEmpty();
     }
-    
+
     @Test
-    public void crearProducto_retornaGuardaProductoEnBD(){
-              
+    public void crearProducto_retornaGuardaProductoEnBD() {
+
         Producto p = new Producto();
         p.setNombre("Perl DMPR925SP/C 714");
         p.setCategoria(categoriaService.buscarPorId(3L));
@@ -86,33 +85,51 @@ public class ProductoServiceTest {
         p.setDescripcion("Batería 5 cpos, Decade Maple, Edicion Especial, redo 14x5,5, Slate Galaxy Flake (714)");
         p.setStock(4);
         p.setUrlImagen("/img/guitar1.png");
-        
+
         productoService.crearProducto(p);
-        
-         Producto producto = productoService.buscarPorId(10L);
-        
+
+        Producto producto = productoService.buscarPorId(10L);
+
         assertThat(producto).isNotNull();
         assertThat(producto.getId()).isEqualTo(10L);
-        
+
     }
+
     @Test
-    public void modificarProducto_retornaProductoModificado(){
-         Producto producto = productoService.buscarPorId(10L);
-         producto.setNombre("MODIFICADO");
-         productoService.actualizarProducto(10L,producto);
-         producto = productoService.buscarPorId(10L);
-         System.out.println(producto.getNombre());
-         assertThat(producto.getNombre()).isEqualTo("MODIFICADO");
+    public void modificarProducto_retornaProductoModificado() {
+        Producto producto = productoService.buscarPorId(10L);
+        producto.setNombre("MODIFICADO");
+        productoService.actualizarProducto(10L, producto);
+        producto = productoService.buscarPorId(10L);
+        System.out.println(producto.getNombre());
+        assertThat(producto.getNombre()).isEqualTo("MODIFICADO");
     }
-    
+
     @Test
-    public void eliminarPorId_retornaProductoEliminadoDeBD(){
+    public void eliminarPorId_retornaProductoEliminadoDeBD() {
         Long id = 10L;
-        
+
         productoService.eliminarPorId(id);
-        
-       Producto producto = productoService.buscarPorId(id);
-       
-       assertThat(producto).isNull();
+
+        Producto producto = productoService.buscarPorId(id);
+
+        assertThat(producto).isNull();
+    }
+
+    @Test
+    public void buscarProducto_porContieneNombre_retornaColeccionProductos() {
+        List<Producto> productos = productoService.buscarPorNombre("stratocaster");
+        assertThat(productos).isNotEmpty();
+    }
+
+    @Test
+    public void buscarProducto_porContieneNombreNoEncontrado_retornaColeccionVacia() {
+        List<Producto> productos = productoService.buscarPorNombre("zzz");
+        assertThat(productos).isEmpty();
+    }
+
+    @Test(expected = InvalidDataAccessApiUsageException.class)
+    public void buscarProvincia_porContieneNombreNull_lanzaExeption() {
+        List<Producto> productos = productoService.buscarPorNombre(null);
     }
 }
