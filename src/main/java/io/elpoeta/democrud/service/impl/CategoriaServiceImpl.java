@@ -13,6 +13,25 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author elPoeta
  */
+
+/**
+ * Esta es la clase de negocio que expone operaciones relacionadas con el objeto
+ * de dominio Categoria.
+ *
+ * La anotación @Service es de Spring, y le indica a Spring que esta clase
+ * deberá ser tratada como clase de servicios. Spring registrará esta clase para
+ * ser inyectada en donde sea necesario.
+ *
+ * La anotación @Transactional indica que todos los métodos de esta clase
+ * deberán ser transaccionales (necesario para JPA).
+ *
+ * El constructor de esta clase recibe su dependencia obligatoria. Esto le
+ * indica a Spring que para constuir una instancia de esta clase deberá primero
+ * conseguir una instancia de su dependencia.
+ *
+ */
+
+
 @Service
 @Transactional
 public class CategoriaServiceImpl implements CategoriaService{

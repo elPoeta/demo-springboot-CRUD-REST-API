@@ -2,6 +2,7 @@ package io.elpoeta.democrud.domaintest;
 
 import io.elpoeta.democrud.DemoSpringbootCrudApplication;
 import io.elpoeta.democrud.domain.Producto;
+import io.elpoeta.democrud.exception.ProductoNoEncontrado;
 import io.elpoeta.democrud.service.CategoriaService;
 import io.elpoeta.democrud.service.ProductoService;
 import java.math.BigDecimal;
@@ -19,6 +20,36 @@ import org.springframework.test.context.junit4.SpringRunner;
  *
  * @author elPoeta
  */
+
+
+/**
+ * Esta clase representa un test de componente. Los tests de componentes se
+ * encargan de testear una clase en particular, y todas las dependencias que la
+ * misma tiene.
+ *
+ * Este test comprueba el funcionamiento de la clase ProductoRepository. Esta clase
+ * utiliza Spring Data para acceder a la base de datos. El proyecto utiliza una
+ * base de datos en memoria (HSQLDB) que Spring levanta y configura de manera
+ * automática. Cuando se crea el contexto de Spring, se levanta esta base de
+ * datos y se ejecuta el archivo schema.sql (buscar en  "Other Sources") que
+ * crea las tablas CATEGORIA y PRODUCTO, y le inserta datos de prueba.
+ *
+ * Para ejecutar este test en NetBeans: click derecho > "Test File" (CTRL + F6)
+ *
+ * Podemos ver que esta clase tiene las siguientes anotaciones:
+ *
+ * @RunWith(SpringRunner.class): Le indica a JUnit que utilize el Runner de
+ * Spring al momento de correr los test (necesario para levantar el contexto de
+ * Spring).
+ *
+ * @SpringBootTest: Si utilizamos una aplicación con Spring Boot, nos da
+ * diversas features de Spring Boot (ver Javadoc). Si en la clase
+ * ApplicationConfig utilizamos la anotacion @SpringBootApplication, no hace
+ * falta pasarle la clase como parámetro
+ *
+ */
+
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DemoSpringbootCrudApplication.class)
 public class ProductoServiceTest {
@@ -54,21 +85,21 @@ public class ProductoServiceTest {
     }
 
     @Test
-    public void buscarTodos_retornaColeccion() {
+    public void buscarTodos_retornaColeccion() throws ProductoNoEncontrado {
         List<Producto> productos = productoService.buscarTodos();
 
         assertThat(productos).isNotEmpty();
     }
 
     @Test
-    public void buscarPorCategoria_retornaColecionConEsaCategoria() {
+    public void buscarPorCategoria_retornaColecionConEsaCategoria() throws ProductoNoEncontrado {
         Long id = 1L;
         List<Producto> productos = productoService.buscarPorCategoria(id);
         assertThat(productos).isNotEmpty();
     }
 
     @Test
-    public void buscarPorCategoria_retornaColecionVacia() {
+    public void buscarPorCategoria_retornaColecionVacia() throws ProductoNoEncontrado {
         Long id = 7L;
         List<Producto> productos = productoService.buscarPorCategoria(id);
         assertThat(productos).isEmpty();

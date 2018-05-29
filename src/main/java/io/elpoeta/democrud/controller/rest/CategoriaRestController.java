@@ -13,6 +13,22 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author elPoeta
  */
+
+
+/**
+ * Este es un controlador de presentación (que se define anotándolo con @RestController),
+ * que devuelve JSON al cliente.
+ * Estos controladores se utilizan para retornar datos en algún formato que sea
+ * fácil de consumir por otro programa (a diferencia de un @Controller de vista,
+ * que retorna HTML para que sea visualizado por un ser humano).
+ *
+ * La anotación @RequestMapping en un método indica que ese método se invoca
+ * cuando se recibe una petición HTTP con esa dirección. El método en cuestión
+ * devuelve un objeto, que será transformado al formato JSON y retornado al
+ * invocante.
+ */
+
+
 @RestController
 @RequestMapping("/api/categoria")
 public class CategoriaRestController {

@@ -10,6 +10,13 @@ import javax.persistence.Id;
  *
  * @author elPoeta
  */
+
+/**
+ * Este objeto de dominio utiliza anotaciones para relacionar la clase y sus
+ * atributos con una tabla. JPA (a través de Hibernate) utiliza estas anotaciones
+ * para acceder a la base de datos e interactuar con objetos de esta clase.
+ */
+
 @Entity
 public class Categoria {
     @Id

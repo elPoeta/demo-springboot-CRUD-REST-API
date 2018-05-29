@@ -124,6 +124,9 @@ const guardarDetalles = () => {
         prod.descripcion = document.querySelector("#put-descripcion").value;
         prod.urlImagen = document.querySelector("#put-urlimagen").value;
         prod.categoria.id = document.querySelector("#put-idcategoria").value;
+         if (prod.nombre !== "" && prod.precio > 0)
+        {
+
         http.put(URL_ACTUALIZAR_PRODUCTO + prod.id, prod)
                 .then((data) => {
                     if (data.ok) {
@@ -139,7 +142,13 @@ const guardarDetalles = () => {
                     }
 
                 });
-    });
+    } else {
+            ui.showActualizado("Error!! complete los campos requeridos", "error");
+            setTimeout(() => {
+                ui.hideActualizado();
+            }, 2000);
+        }
+        });
 };
 
 botonNuevo = document.querySelector('#btn-nuevo');
@@ -170,7 +179,7 @@ const guardarNuevo = () => {
         prod.descripcion = document.querySelector("#post-descripcion").value;
         prod.urlImagen = (document.querySelector("#post-urlimagen").value !== "") ?
                           document.querySelector("#post-urlimagen").value : "/img/noimg.jpg";
-        if (prod.nombre !== "")
+        if (prod.nombre !== "" && prod.precio > 0)
         {
             http.post(URL_CREAR_PRODUCTO, prod)
                     .then((data) => {

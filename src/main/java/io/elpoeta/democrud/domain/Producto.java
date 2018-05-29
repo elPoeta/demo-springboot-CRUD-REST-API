@@ -2,6 +2,7 @@
 package io.elpoeta.democrud.domain;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,6 +14,13 @@ import javax.persistence.Transient;
 /**
  *
  * @author elPoeta
+ */
+
+
+/**
+ * Este objeto de dominio utiliza anotaciones para relacionar la clase y sus
+ * atributos con una tabla. JPA (a través de Hibernate) utiliza estas anotaciones
+ * para acceder a la base de datos e interactuar con objetos de esta clase.
  */
 
 @Entity
@@ -60,6 +68,9 @@ public class Producto {
     }
 
     public void setPrecio(BigDecimal precio) {
+        if(precio.compareTo(new BigDecimal(0.0)) <= 0){
+            throw new IllegalArgumentException();
+        }
         this.precio = precio;
         this.setPrecioPesos();
     }

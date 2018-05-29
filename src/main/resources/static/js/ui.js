@@ -77,7 +77,7 @@ let template = `
                                                     </div>
                                                      <div class="form-group col-md-4">
                                                         <label for="precioDolar">Precio U$$ (*)</label>
-                                                        <input type="text" id="post-precio" class="form-control" value="" required>
+                                                        <input type="text" id="post-precio" class="form-control" value="" required min="1">
                                                     </div>
                                                  
                                                      <div class="form-group col-md-4">
@@ -141,7 +141,7 @@ let template = `
                                                     </div>
                                                      <div class="form-group col-md-4">
                                                         <label for="precioDolar">Precio U$$ (*)</label>
-                                                        <input type="text" id="put-precio" class="form-control" value="${producto.precio}" required>
+                                                        <input type="text" id="put-precio" class="form-control" value="${producto.precio}" required min="1">
                                                     </div>
                                                     <div class="form-group col-md-4">
                                                         <label for="precioPeso">Precio $</label>
