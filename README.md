@@ -5,3 +5,5 @@ Spring es un factory de objetos. Es decir, se encargará de construir por nosotr
 Es decir, Spring es un factory de objetos que inyecta dependencias.
 
 Estos objetos en Spring se conocen como "beans". Una clase se define como bean al agregarle alguna de estas anotaciones: @Component, @Controller, @RestController, @Service, @Repository. Además, allí mismo se declaran las propiedades del objeto que tienen dependencias a otros beans marcandolas con la anotación @Autowired.
+
+Web para generar el proyecto https://start.spring.io/
